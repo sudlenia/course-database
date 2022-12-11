@@ -1,16 +1,7 @@
 ﻿using System;
-using System.Collections;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
 using System.Data.OleDb;
-using System.Drawing;
-using System.IO;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
-using static System.Net.WebRequestMethods;
 
 namespace course
 {
@@ -44,7 +35,7 @@ namespace course
                 {
                     if (comboBox1.Items.Contains(_date))
                     {
-                        
+
                     }
                     else
                     {
@@ -84,7 +75,7 @@ namespace course
         private void updateCouriers(string q = "SELECT Products.NameProduct, Delivery.Count, Delivery.TheDate, Addresses.Area, Addresses.Street, Addresses.House, Courier.NameCourier " +
                                                "FROM Products INNER JOIN (Courier INNER JOIN (Addresses INNER JOIN Delivery ON Addresses.IdAddress = Delivery.IdAddress) " +
                                                "ON Courier.IdCourier = Delivery.IdCourier) ON Products.IdProduct = Delivery.IdProduct " +
-                                               "WHERE (((Courier.NameCourier)= ")                                 
+                                               "WHERE (((Courier.NameCourier)= ")
         {
             string query = q + $"'{name}'));";
             OleDbCommand command = new OleDbCommand(query, _connection);
@@ -174,5 +165,65 @@ namespace course
             reader.Close();
         }
 
+        public List<List<string>> ExecuteQuery(string query)
+        {
+            List<List<string>> data = new List<List<string>>();
+
+            object[] meta = new object[10];
+            bool read;
+
+            OleDbCommand command = new OleDbCommand(query, _connection);
+            OleDbDataReader reader = command.ExecuteReader();
+
+            if (reader.Read())
+            {
+                do
+                {
+                    List<string> row = new List<string>();
+                    int NumberOfColums = reader.GetValues(meta);
+                    for (int i = 0; i < NumberOfColums; i++)
+                    {
+                        row.Add(meta[i].ToString() ?? "");
+                    }
+                    data.Add(row);
+                    read = reader.Read();
+                } while (read == true);
+            }
+            reader.Close();
+
+            return data;
+        }
+
+        private void MapBtn_Click_1(object sender, EventArgs e)
+        {
+            if (dataGridView1.SelectedRows.Count == 0)
+            {
+                MessageBox.Show("Выберите строку адреса!", "Error!");
+                return;
+            }
+            var row = dataGridView1.SelectedRows[0];
+
+            string area = row.Cells[3].Value?.ToString() ?? "";
+            string street = row.Cells[4].Value?.ToString() ?? "";
+            string house = row.Cells[5].Value?.ToString() ?? "";
+
+            string query = $"SELECT Addresses.X, Addresses.Y " +
+                $"FROM Addresses " +
+                $"WHERE (((Addresses.Area)=\"{area}\") AND ((Addresses.Street)=\"{street}\") AND ((Addresses.House)={int.Parse(house)})); ";
+
+            List<string> coords = ExecuteQuery(query)[0];
+
+            string X = coords[0];
+            string Y = coords[1];
+
+            if (X.Length == 0 || Y.Length == 0)
+            {
+                MessageBox.Show("Не получилось найти координаты адреса", "Error!");
+                return;
+            }
+
+            Map map = new Map(double.Parse(X.Replace(".", ",")), double.Parse(Y.Replace(".", ",")));
+            map.ShowDialog();
+        }
     }
 }
