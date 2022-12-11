@@ -109,45 +109,40 @@ namespace course
 
         private void button1_Click(object sender, EventArgs e)
         {
-            string q = "SELECT Products.NameProduct, Delivery.Count, Delivery.TheDate, Addresses.Area, Addresses.Street, Addresses.House " +
-                "FROM Products INNER JOIN (Courier INNER JOIN (Addresses INNER JOIN Delivery ON Addresses.IdAddress = Delivery.IdAddress) " +
-                "ON Courier.IdCourier = Delivery.IdCourier) ON Products.IdProduct = Delivery.IdProduct ";
-            string query = q;
-            if (comboBox1.SelectedItem == null)
+            string query = "SELECT Products.NameProduct, Delivery.Count, Delivery.TheDate, Addresses.Area, Addresses.Street, Addresses.House " +
+                            "FROM Products INNER JOIN (Courier INNER JOIN (Addresses INNER JOIN Delivery ON Addresses.IdAddress = Delivery.IdAddress) " +
+                            "ON Courier.IdCourier = Delivery.IdCourier) ON Products.IdProduct = Delivery.IdProduct " +
+                            "WHERE (";
+            if (comboBox1.SelectedItem != null)
             {
-                query += $"WHERE ((Addresses.Area)='{comboBox2.Text}')";
-                query += $"AND ((Courier.NameCourier)='{name}');";
+                query += $"((Delivery.TheDate)=#{comboBox1.Text}#)";
             }
-            if (comboBox2.SelectedItem == null)
+            if (comboBox2.SelectedItem != null)
             {
-                query += $"WHERE (((Delivery.TheDate)=#{comboBox1.Text}#) ";
-                query += $"AND ((Courier.NameCourier)='{name}'));";
+                if (query.EndsWith(")")) query += " AND";
+                query += $"((Addresses.Area)='{comboBox2.Text}')";
             }
-            if (comboBox1.SelectedItem != null && comboBox2.SelectedItem != null)
+            query += $" AND ((Courier.NameCourier)='{name}'));";
+            if (comboBox1.SelectedItem != null || comboBox2.SelectedItem != null)
             {
-                query += $"WHERE (((Delivery.TheDate)=#{comboBox1.Text}#) ";
-                query += $"AND ((Addresses.Area)='{comboBox2.Text}') ";
-                query += $"AND ((Courier.NameCourier)='{name}'));";
+                comboBox1.SelectedItem = null;
+                comboBox2.SelectedItem = null;
+                OleDbCommand command = new OleDbCommand(query, _connection);
+                OleDbDataReader reader = command.ExecuteReader();
+
+                dataGridView1.Rows.Clear();
+
+                while (reader.Read())
+                {
+                    var nameProduct = reader[0];
+                    var count = reader[1];
+                    var theDate = reader[2];
+                    var area = reader[3];
+                    var street = reader[4];
+                    var house = reader[5];
+                    dataGridView1.Rows.Add(nameProduct, count, theDate, area, street, house);
+                }
             }
-            comboBox1.SelectedItem = null;
-            comboBox2.SelectedItem = null;
-            OleDbCommand command = new OleDbCommand(query, _connection);
-            OleDbDataReader reader = command.ExecuteReader();
-
-            dataGridView1.Rows.Clear();
-
-            while (reader.Read())
-            {
-                var nameProduct = reader[0];
-                var count = reader[1];
-                var theDate = reader[2];
-                var area = reader[3];
-                var street = reader[4];
-                var house = reader[5];
-                dataGridView1.Rows.Add(nameProduct, count, theDate, area, street, house);
-            }
-
-
         }
 
         private void button2_Click(object sender, EventArgs e)
