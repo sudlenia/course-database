@@ -292,8 +292,10 @@ namespace course
             if(comboBox7.SelectedItem != null && comboBox5.SelectedItem != null && comboBox6.SelectedItem != null 
                 && textBox1.Text != null && dateTimePicker1.Value != null)
             {
+                string[] address = comboBox5.Text.ToString().Split(' ');
+                string house = address[address.Length - 1];
                 string query = "INSERT INTO Delivery " +
-                        $"VALUES('{GetIdCourier(comboBox7.Text)}', '{GetIdAddress(comboBox5.Text)}', '{GetIdProduct(comboBox6.Text)}', " +
+                        $"VALUES('{GetIdCourier(comboBox7.Text)}', '{GetIdAddress(house)}', '{GetIdProduct(comboBox6.Text)}', " +
                         $"'{textBox1.Text}', '0', '{dateTimePicker1.Value.ToString("dd/MM/yyyy")}', '{Convert.ToInt32(MaxId()) + 1}');";
                 OleDbCommand command = new OleDbCommand(query, _connection);
                 command.ExecuteNonQuery();
@@ -355,7 +357,7 @@ namespace course
 
         public string GetIdAddress(string _address)
         {
-            string address = _address.ToString().Split(' ')[2];
+            string address = _address.ToString();
             string query = $"SELECT Addresses.IdAddress FROM Addresses WHERE (((Addresses.House)={address}));";
             return ExecuteQuery(query)[0][0];
         }
