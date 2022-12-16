@@ -196,6 +196,11 @@ namespace course
 
         private void MapBtn_Click_1(object sender, EventArgs e)
         {
+            if (dataGridView1.SelectedRows.Count == 0)
+            {
+                MessageBox.Show("Выберите строку адреса!", "Error!");
+                return;
+            }
             var row = dataGridView1.SelectedRows[0];
 
             string area = row.Cells[3].Value?.ToString() ?? "";
@@ -224,6 +229,11 @@ namespace course
         private void button3_Click(object sender, EventArgs e)
         {
             updateCouriers();
+        }
+
+        private void button4_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }
