@@ -123,3 +123,67 @@ C:\Users\sudlenia\Desktop\sudlenia\заебался\course-database\course\obj\D
 C:\Users\sudlenia\Desktop\sudlenia\заебался\course-database\course\obj\Debug\course.csproj.CopyComplete
 C:\Users\sudlenia\Desktop\sudlenia\заебался\course-database\course\obj\Debug\course.exe
 C:\Users\sudlenia\Desktop\sudlenia\заебался\course-database\course\obj\Debug\course.pdb
+C:\Users\sudlenia\Desktop\course-database-main (1)\course-database-main\course\bin\Debug\course.exe.config
+C:\Users\sudlenia\Desktop\course-database-main (1)\course-database-main\course\bin\Debug\course.exe
+C:\Users\sudlenia\Desktop\course-database-main (1)\course-database-main\course\bin\Debug\course.pdb
+C:\Users\sudlenia\Desktop\course-database-main (1)\course-database-main\course\bin\Debug\EntityFramework.dll
+C:\Users\sudlenia\Desktop\course-database-main (1)\course-database-main\course\bin\Debug\EntityFramework.SqlServer.dll
+C:\Users\sudlenia\Desktop\course-database-main (1)\course-database-main\course\bin\Debug\GMap.NET.Core.dll
+C:\Users\sudlenia\Desktop\course-database-main (1)\course-database-main\course\bin\Debug\GMap.NET.WindowsForms.dll
+C:\Users\sudlenia\Desktop\course-database-main (1)\course-database-main\course\bin\Debug\GMap.NET.WindowsPresentation.dll
+C:\Users\sudlenia\Desktop\course-database-main (1)\course-database-main\course\bin\Debug\Newtonsoft.Json.dll
+C:\Users\sudlenia\Desktop\course-database-main (1)\course-database-main\course\bin\Debug\System.Data.SqlClient.dll
+C:\Users\sudlenia\Desktop\course-database-main (1)\course-database-main\course\bin\Debug\System.Data.SQLite.dll
+C:\Users\sudlenia\Desktop\course-database-main (1)\course-database-main\course\bin\Debug\System.Data.SQLite.EF6.dll
+C:\Users\sudlenia\Desktop\course-database-main (1)\course-database-main\course\bin\Debug\System.Data.SQLite.Linq.dll
+C:\Users\sudlenia\Desktop\course-database-main (1)\course-database-main\course\bin\Debug\System.Security.Principal.Windows.dll
+C:\Users\sudlenia\Desktop\course-database-main (1)\course-database-main\course\bin\Debug\EntityFramework.xml
+C:\Users\sudlenia\Desktop\course-database-main (1)\course-database-main\course\bin\Debug\EntityFramework.SqlServer.xml
+C:\Users\sudlenia\Desktop\course-database-main (1)\course-database-main\course\bin\Debug\Newtonsoft.Json.xml
+C:\Users\sudlenia\Desktop\course-database-main (1)\course-database-main\course\bin\Debug\System.Data.SqlClient.xml
+C:\Users\sudlenia\Desktop\course-database-main (1)\course-database-main\course\bin\Debug\System.Data.SQLite.xml
+C:\Users\sudlenia\Desktop\course-database-main (1)\course-database-main\course\bin\Debug\System.Security.Principal.Windows.xml
+C:\Users\sudlenia\Desktop\course-database-main (1)\course-database-main\course\obj\Debug\course.csproj.AssemblyReference.cache
+C:\Users\sudlenia\Desktop\course-database-main (1)\course-database-main\course\obj\Debug\course.csproj.SuggestedBindingRedirects.cache
+C:\Users\sudlenia\Desktop\course-database-main (1)\course-database-main\course\obj\Debug\course.AdminForm.resources
+C:\Users\sudlenia\Desktop\course-database-main (1)\course-database-main\course\obj\Debug\course.MainForm.resources
+C:\Users\sudlenia\Desktop\course-database-main (1)\course-database-main\course\obj\Debug\course.Map.resources
+C:\Users\sudlenia\Desktop\course-database-main (1)\course-database-main\course\obj\Debug\course.Properties.Resources.resources
+C:\Users\sudlenia\Desktop\course-database-main (1)\course-database-main\course\obj\Debug\course.UserForm.resources
+C:\Users\sudlenia\Desktop\course-database-main (1)\course-database-main\course\obj\Debug\course.csproj.GenerateResource.cache
+C:\Users\sudlenia\Desktop\course-database-main (1)\course-database-main\course\obj\Debug\course.csproj.CoreCompileInputs.cache
+C:\Users\sudlenia\Desktop\course-database-main (1)\course-database-main\course\obj\Debug\course.csproj.CopyComplete
+C:\Users\sudlenia\Desktop\course-database-main (1)\course-database-main\course\obj\Debug\course.exe
+C:\Users\sudlenia\Desktop\course-database-main (1)\course-database-main\course\obj\Debug\course.pdb
+D:\C#\course-database-main\course\bin\Debug\course.exe.config
+D:\C#\course-database-main\course\bin\Debug\course.exe
+D:\C#\course-database-main\course\bin\Debug\course.pdb
+D:\C#\course-database-main\course\bin\Debug\EntityFramework.dll
+D:\C#\course-database-main\course\bin\Debug\EntityFramework.SqlServer.dll
+D:\C#\course-database-main\course\bin\Debug\GMap.NET.Core.dll
+D:\C#\course-database-main\course\bin\Debug\GMap.NET.WindowsForms.dll
+D:\C#\course-database-main\course\bin\Debug\GMap.NET.WindowsPresentation.dll
+D:\C#\course-database-main\course\bin\Debug\Newtonsoft.Json.dll
+D:\C#\course-database-main\course\bin\Debug\System.Data.SqlClient.dll
+D:\C#\course-database-main\course\bin\Debug\System.Data.SQLite.dll
+D:\C#\course-database-main\course\bin\Debug\System.Data.SQLite.EF6.dll
+D:\C#\course-database-main\course\bin\Debug\System.Data.SQLite.Linq.dll
+D:\C#\course-database-main\course\bin\Debug\System.Security.Principal.Windows.dll
+D:\C#\course-database-main\course\bin\Debug\EntityFramework.xml
+D:\C#\course-database-main\course\bin\Debug\EntityFramework.SqlServer.xml
+D:\C#\course-database-main\course\bin\Debug\Newtonsoft.Json.xml
+D:\C#\course-database-main\course\bin\Debug\System.Data.SqlClient.xml
+D:\C#\course-database-main\course\bin\Debug\System.Data.SQLite.xml
+D:\C#\course-database-main\course\bin\Debug\System.Security.Principal.Windows.xml
+D:\C#\course-database-main\course\obj\Debug\course.csproj.AssemblyReference.cache
+D:\C#\course-database-main\course\obj\Debug\course.csproj.SuggestedBindingRedirects.cache
+D:\C#\course-database-main\course\obj\Debug\course.AdminForm.resources
+D:\C#\course-database-main\course\obj\Debug\course.MainForm.resources
+D:\C#\course-database-main\course\obj\Debug\course.Map.resources
+D:\C#\course-database-main\course\obj\Debug\course.Properties.Resources.resources
+D:\C#\course-database-main\course\obj\Debug\course.UserForm.resources
+D:\C#\course-database-main\course\obj\Debug\course.csproj.GenerateResource.cache
+D:\C#\course-database-main\course\obj\Debug\course.csproj.CoreCompileInputs.cache
+D:\C#\course-database-main\course\obj\Debug\course.csproj.CopyComplete
+D:\C#\course-database-main\course\obj\Debug\course.exe
+D:\C#\course-database-main\course\obj\Debug\course.pdb

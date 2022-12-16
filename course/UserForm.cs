@@ -196,11 +196,6 @@ namespace course
 
         private void MapBtn_Click_1(object sender, EventArgs e)
         {
-            if (dataGridView1.SelectedRows.Count == 0)
-            {
-                MessageBox.Show("Выберите строку адреса!", "Error!");
-                return;
-            }
             var row = dataGridView1.SelectedRows[0];
 
             string area = row.Cells[3].Value?.ToString() ?? "";
@@ -209,7 +204,7 @@ namespace course
 
             string query = $"SELECT Addresses.X, Addresses.Y " +
                 $"FROM Addresses " +
-                $"WHERE (((Addresses.Area)=\"{area}\") AND ((Addresses.Street)=\"{street}\") AND ((Addresses.House)={int.Parse(house)})); ";
+                $"WHERE (((Addresses.Area)='{area}') AND ((Addresses.Street)='{street}') AND ((Addresses.House)={int.Parse(house)})); ";
 
             List<string> coords = ExecuteQuery(query)[0];
 
@@ -224,6 +219,11 @@ namespace course
 
             Map map = new Map(double.Parse(X.Replace(".", ",")), double.Parse(Y.Replace(".", ",")));
             map.ShowDialog();
+        }
+
+        private void button3_Click(object sender, EventArgs e)
+        {
+            updateCouriers();
         }
     }
 }
