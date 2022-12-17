@@ -1,6 +1,8 @@
-﻿using System;
+﻿using GMap.NET;
+using System;
 using System.Collections.Generic;
 using System.Data.OleDb;
+using System.Linq;
 using System.Windows.Forms;
 
 namespace course
@@ -138,14 +140,12 @@ namespace course
 
         private void button2_Click(object sender, EventArgs e)
         {
-            DateTime Time = DateTime.Now;
-            string _Time = Time.ToString().Split(' ')[0].Replace('.', '/');
-            string q = "SELECT Products.NameProduct, Delivery.Count, Delivery.TheDate, Addresses.Area, Addresses.Street, Addresses.House, Courier.NameCourier " +
-                                               "FROM Products INNER JOIN (Courier INNER JOIN (Addresses INNER JOIN Delivery ON Addresses.IdAddress = Delivery.IdAddress) " +
-                                               "ON Courier.IdCourier = Delivery.IdCourier) ON Products.IdProduct = Delivery.IdProduct " +
-                                               "WHERE (((Delivery.TheDate)= ";
-            string query = q + $"#{_Time}#) ";
-            query += $"AND ((Courier.NameCourier)='{name}'));";
+            //DateTime Time = DateTime.Now;
+            //string _Time = Time.ToString().Split(' ')[0].Replace('.', '/');
+            string query = $"SELECT Products.NameProduct, Delivery.Count, Delivery.TheDate, Addresses.Area, Addresses.Street, Addresses.House, Courier.NameCourier " +
+                                               $"FROM Products INNER JOIN (Courier INNER JOIN (Addresses INNER JOIN Delivery ON Addresses.IdAddress = Delivery.IdAddress) " +
+                                               $"ON Courier.IdCourier = Delivery.IdCourier) ON Products.IdProduct = Delivery.IdProduct " +
+                                               $"WHERE (((Delivery.TheDate)= Date()) AND ((Courier.NameCourier)='{name}'));";
             OleDbCommand command = new OleDbCommand(query, _connection);
             OleDbDataReader reader = command.ExecuteReader();
 
@@ -155,7 +155,7 @@ namespace course
             {
                 var nameProduct = reader[0];
                 var count = reader[1];
-                var theDate = reader[2];
+                var theDate = reader[2].ToString().Split(' ')[0].Replace('.', '/');
                 var area = reader[3];
                 var street = reader[4];
                 var house = reader[5];
@@ -233,7 +233,18 @@ namespace course
 
         private void button4_Click(object sender, EventArgs e)
         {
+            // get all todays curiers points to go
 
+            string query = $"SELECT Addresses.X, Addresses.Y " +
+                $"FROM Products INNER JOIN (Courier INNER JOIN (Addresses INNER JOIN Delivery ON Addresses.IdAddress = Delivery.IdAddress) ON Courier.IdCourier = Delivery.IdCourier) ON Products.IdProduct = Delivery.IdProduct " +
+                $"WHERE (((Delivery.TheDate)=Date()) AND ((Courier.NameCourier)=\"{name}\")); ";
+
+            List<List<string>> data = ExecuteQuery(query);
+            List<List<double>> points = data.Select(a => a.Select(d => Convert.ToDouble(d.Replace('.', ','))).ToList()).ToList();
+
+            // open a mapЫ
+            Map map = new Map(points);
+            map.ShowDialog();
         }
     }
 }

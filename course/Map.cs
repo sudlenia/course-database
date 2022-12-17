@@ -28,6 +28,7 @@ namespace course
 
         private readonly double TargetX;
         private readonly double TargetY;
+
         public Map(double target_x, double target_y)
         {
             InitializeComponent();
@@ -39,6 +40,58 @@ namespace course
             DrawMap();
         }
 
+        public Map(List<List<double>> data)
+        {
+            InitializeComponent();
+
+            Setting();
+
+            Vertex startVertex = new Vertex() { X = FromX, Y = FromY };
+            List<Vertex> vertices = new List<Vertex>() { startVertex };
+            List<Edge> edges = new List<Edge>();
+
+            data.ForEach(p =>
+            {
+                Vertex vert = new Vertex() { X = p[0], Y = p[1] };
+                vertices.Add(vert);
+            });
+
+            for (int i = 0; i < vertices.Count; i++)
+            {
+                for (int j = i; j < vertices.Count; j++)
+                {
+                    if (i != j)
+                    {
+                        vertices[i].Neighbours.Add(vertices[j]);
+                        Edge edge = new Edge() 
+                        { Vertex1 = vertices[i], Vertex2 = vertices[j], Weight = 12 };
+                        edges.Add(edge);
+                    }
+                }
+            }
+            Vertex endVertex = vertices[vertices.Count - 1];
+
+            edges.Remove(edges.Find(s => s.Vertex1 == startVertex && s.Vertex2 == endVertex));
+            startVertex.Neighbours.Remove(endVertex);
+            endVertex.Neighbours.Remove(startVertex);
+
+            Graph graph = new Graph() { Vertices = vertices, Edges = edges };
+
+            DijkstraMagic.graph = graph;
+            DijkstraMagic.StartVertex = startVertex;
+            DijkstraMagic.EndVertex = endVertex;
+
+            List<Vertex> shortestPath = DijkstraMagic.FindShortestPath();
+
+            //PointLatLng start = new PointLatLng(FromX, FromY);
+            // convert to list of points
+            List<PointLatLng> points = new List<PointLatLng>();
+
+            shortestPath.ForEach(d => points.Add( new PointLatLng( d.X, d.Y ) ) );
+
+            DrawMap(points);
+        }
+
         private List<PointLatLng> ConvertToPointList(string points)
         {
             return points
@@ -46,49 +99,61 @@ namespace course
                 .Select(r =>
                 new PointLatLng(Convert.ToDouble(
                     r.Split(' ')[0].Trim()
-                    .Remove(r.Split(' ')[0].Trim().Length - 1).Replace('.', ',')), 
+                    .Remove(r.Split(' ')[0].Trim().Length - 1).Replace('.', ',')),
                 Convert.ToDouble(
                     r.Split(' ')[1].Trim()
                     .Replace('.', ','))
                 )).ToList();
         }
 
-        private void DrawMap()
+        private void DrawMap(List<PointLatLng> points = null)
         {
             GMapOverlay routes = new GMapOverlay("routes"); //Создаем объект наложения (Overlay)
-            List<PointLatLng> points = new List<PointLatLng>(); //Создаем лист, где будут наши точки пути.
+            GMapOverlay markersOverlay = new GMapOverlay("marker"); //Создаем Overlay
 
-            PointLatLng start = new PointLatLng(FromX, FromY);
-            PointLatLng end = new PointLatLng(TargetX, TargetY);
-            points.Add(start);
+            if (points is null)
+            {
+                points = new List<PointLatLng>();
+                PointLatLng start = new PointLatLng(FromX, FromY);
+                PointLatLng end = new PointLatLng(TargetX, TargetY);
+                points.Add(start);
 
-            // magic of hardcode!
-            if (TargetX == Convert.ToDouble("56,01142414341906") && TargetY == Convert.ToDouble("92,86212445763783"))
-            {
-                ConvertToPointList(ToMira81).ForEach(a => points.Add(a));
+                // magic of hardcode!
+                if (TargetX == Convert.ToDouble("56,01142414341906") && TargetY == Convert.ToDouble("92,86212445763783"))
+                {
+                    ConvertToPointList(ToMira81).ForEach(a => points.Add(a));
+                }
+                else if (TargetX == Convert.ToDouble("56,00619184444418") && TargetY == Convert.ToDouble("92,7708360287757"))
+                {
+                    ConvertToPointList(ToSvobodny76).ForEach(a => points.Add(a));
+                }
+                else if (TargetX == Convert.ToDouble("56,009657449935865") && TargetY == Convert.ToDouble("92,861770901567"))
+                {
+                    ConvertToPointList(ToKarla135).ForEach(a => points.Add(a));
+                }
+                else if (TargetX == Convert.ToDouble("55,990488225723084") && TargetY == Convert.ToDouble("92,94134369144753"))
+                {
+                    ConvertToPointList(ToMagazine).ForEach(a => points.Add(a));
+                }
+                else if (TargetX == Convert.ToDouble("56,01079310426668") && TargetY == Convert.ToDouble("92,8430333408457"))
+                {
+                    ConvertToPointList(ToMira126).ForEach(a => points.Add(a));
+                }
+                else if (TargetX == Convert.ToDouble("56,01507910034775") && TargetY == Convert.ToDouble("92,85036576453813"))
+                {
+                    ConvertToPointList(ToAdha109).ForEach(a => points.Add(a));
+                }
+                points.Add(end);
             }
-            else if (TargetX == Convert.ToDouble("56,00619184444418") && TargetY == Convert.ToDouble("92,7708360287757"))
+            else
             {
-                ConvertToPointList(ToSvobodny76).ForEach(a => points.Add(a));
-            }
-            else if (TargetX == Convert.ToDouble("56,009657449935865") && TargetY == Convert.ToDouble("92,861770901567"))
-            {
-                ConvertToPointList(ToKarla135).ForEach(a => points.Add(a));
-            }
-            else if (TargetX == Convert.ToDouble("55,990488225723084") && TargetY == Convert.ToDouble("92,94134369144753"))
-            {
-                ConvertToPointList(ToMagazine).ForEach(a => points.Add(a));
-            }
-            else if (TargetX == Convert.ToDouble("56,01079310426668") && TargetY == Convert.ToDouble("92,8430333408457"))
-            {
-                ConvertToPointList(ToMira126).ForEach(a => points.Add(a));
-            }
-            else if (TargetX == Convert.ToDouble("56,01507910034775") && TargetY == Convert.ToDouble("92,85036576453813"))
-            {
-                ConvertToPointList(ToAdha109).ForEach(a => points.Add(a));
-            }
+                points.ForEach(p =>
+                {
+                    GMarkerGoogle marker = new GMarkerGoogle(p, GMarkerGoogleType.black_small);
+                    markersOverlay.Markers.Add(marker);
+                });
 
-            points.Add(end);
+            }
 
             //MapRoute route = GoogleMapProvider.Instance.GetRoute(start, end, false, true, 14);
 
@@ -97,7 +162,6 @@ namespace course
             routes.Routes.Add(r); //Добавляем на наш Overlay маршрут
             gmap1.Overlays.Add(routes); //Накладываем Overlay на карту.
 
-            GMapOverlay markersOverlay = new GMapOverlay("marker"); //Создаем Overlay
             GMarkerGoogle markerStart = new GMarkerGoogle(points.FirstOrDefault(), GMarkerGoogleType.blue); //Создаем новую точку и даем ей координаты первого элемента из листа координат и синий цвет
             GMarkerGoogle markerEnd = new GMarkerGoogle(points.LastOrDefault(), GMarkerGoogleType.red); //Тоже самое, но красный цвет и последний из списка координат.
             markerStart.ToolTip = new GMapRoundedToolTip(markerStart); //Указываем тип всплывающей подсказки для точки старта
@@ -120,7 +184,7 @@ namespace course
 
             gmap1.MarkersEnabled = true;
             gmap1.MaxZoom = 18;
-            gmap1.MinZoom = 2;
+            gmap1.MinZoom = 13;
 
             gmap1.MouseWheelZoomType = MouseWheelZoomType.MousePositionAndCenter;
             gmap1.NegativeMode = false;
