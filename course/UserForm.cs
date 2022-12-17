@@ -240,26 +240,9 @@ namespace course
                 $"WHERE (((Delivery.TheDate)=Date()) AND ((Courier.NameCourier)=\"{name}\")); ";
 
             List<List<string>> data = ExecuteQuery(query);
+            List<List<double>> points = data.Select(a => a.Select(d => Convert.ToDouble(d.Replace('.', ','))).ToList()).ToList();
 
-            // start point
-            double FromX = 55.994474805136846;
-            double FromY = 92.79788544574697;
-
-            PointLatLng start = new PointLatLng(FromX, FromY);
-
-
-            // convert to list of points
-            List<PointLatLng> points = new List<PointLatLng>() { start };
-
-            data.ForEach(d =>
-                points.Add(
-                    new PointLatLng(
-                        Convert.ToDouble(d[0].Replace('.', ',')), Convert.ToDouble(d[1].Replace('.', ','))
-                    )
-                )
-            );
-
-            // open a map
+            // open a mapЫ
             Map map = new Map(points);
             map.ShowDialog();
         }

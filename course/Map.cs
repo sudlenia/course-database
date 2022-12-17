@@ -40,11 +40,55 @@ namespace course
             DrawMap();
         }
 
-        public Map(List<PointLatLng> points)
+        public Map(List<List<double>> data)
         {
             InitializeComponent();
 
             Setting();
+
+            Vertex startVertex = new Vertex() { X = FromX, Y = FromY };
+            List<Vertex> vertices = new List<Vertex>() { startVertex };
+            List<Edge> edges = new List<Edge>();
+
+            data.ForEach(p =>
+            {
+                Vertex vert = new Vertex() { X = p[0], Y = p[1] };
+                vertices.Add(vert);
+            });
+
+            for (int i = 0; i < vertices.Count; i++)
+            {
+                for (int j = i; j < vertices.Count; j++)
+                {
+                    if (i != j)
+                    {
+                        vertices[i].Neighbours.Add(vertices[j]);
+                        Edge edge = new Edge() 
+                        { Vertex1 = vertices[i], Vertex2 = vertices[j], Weight = 12 };
+                        edges.Add(edge);
+                    }
+                }
+            }
+            Vertex endVertex = vertices[vertices.Count - 1];
+
+            edges.Remove(edges.Find(s => s.Vertex1 == startVertex && s.Vertex2 == endVertex));
+            startVertex.Neighbours.Remove(endVertex);
+            endVertex.Neighbours.Remove(startVertex);
+
+            Graph graph = new Graph() { Vertices = vertices, Edges = edges };
+
+            DijkstraMagic.graph = graph;
+            DijkstraMagic.StartVertex = startVertex;
+            DijkstraMagic.EndVertex = endVertex;
+
+            List<Vertex> shortestPath = DijkstraMagic.FindShortestPath();
+
+            //PointLatLng start = new PointLatLng(FromX, FromY);
+            // convert to list of points
+            List<PointLatLng> points = new List<PointLatLng>();
+
+            shortestPath.ForEach(d => points.Add( new PointLatLng( d.X, d.Y ) ) );
+
             DrawMap(points);
         }
 
@@ -108,6 +152,7 @@ namespace course
                     GMarkerGoogle marker = new GMarkerGoogle(p, GMarkerGoogleType.black_small);
                     markersOverlay.Markers.Add(marker);
                 });
+
             }
 
             //MapRoute route = GoogleMapProvider.Instance.GetRoute(start, end, false, true, 14);
