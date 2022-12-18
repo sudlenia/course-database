@@ -7,6 +7,24 @@ using System.Windows.Forms.VisualStyles;
 
 namespace course
 {
+    public class Coord
+    {
+        public double X { get; set; }
+        public double Y { get; set; }
+    }
+
+
+    public static class Coordinates
+    {
+        public static Coord IKIT { get; set; } = new Coord() { X = 55.994474805136846, Y = 92.79788544574697 };
+        public static Coord Mira81 { get; set; } = new Coord() { X = 56.01142414341906, Y = 92.86212445763783 };
+        public static Coord Mira124 { get; set; } = new Coord() { X = 56.01079310426668, Y = 92.8430333408457 };
+        public static Coord Gazety5 { get; set; } = new Coord() { X = 55.990488225723084, Y = 92.94134369144753 };
+        public static Coord Svobodnyi76 { get; set; } = new Coord() { X = 56.00619184444418, Y = 92.7708360287757 };
+        public static Coord KarlaMarksa135 { get; set; } = new Coord() { X = 56.009657449935865, Y = 92.861770901567 };
+        public static Coord AdyLebedevoi109 { get; set; } = new Coord() { X = 56.01507910034775, Y = 92.85036576453813 };
+    }
+
     public class Edge
     {
         public Vertex Vertex1 { get; set; }
@@ -38,7 +56,7 @@ namespace course
 
     public static class DijkstraMagic
     {
-        public static int Infinity = 9999999;
+        public static int Infinity = 99999999;
 
         public static Graph graph { get; set; }
         public static Dictionary<Vertex, int> Distances { get; set; } = new Dictionary<Vertex, int>();
@@ -142,5 +160,171 @@ namespace course
 
             return (Distances, Previous);
         }
+
+        public static string getAdress(double x, double y)
+        {
+            if (x == Coordinates.IKIT.X && y == Coordinates.IKIT.Y) return "Институт Космических и Информационных Технологий";
+            if (x == Coordinates.Mira81.X && y == Coordinates.Mira81.Y) return "Мира 81";
+            if (x == Coordinates.Mira124.X && y == Coordinates.Mira124.Y) return "Мира 124";
+            if (x == Coordinates.Gazety5.X && y == Coordinates.Gazety5.Y) return "газеты Пионерской Правды 5";
+            if (x == Coordinates.Svobodnyi76.X && y == Coordinates.Svobodnyi76.Y) return "Свободный 76";
+            if (x == Coordinates.KarlaMarksa135.X && y == Coordinates.KarlaMarksa135.Y) return "Карла Маркса 135";
+            if (x == Coordinates.AdyLebedevoi109.X && y == Coordinates.AdyLebedevoi109.Y) return "Ады Лебедевой 109";
+
+            return "";
+        }
+
+        public static int GetDistance(double x1, double y1, double x2, double y2)
+        {
+            if ((x1 == Coordinates.IKIT.X && y1 == Coordinates.IKIT.Y 
+                && x2 == Coordinates.Mira81.X && y2 == Coordinates.Mira81.Y) 
+                || ( (x1 == Coordinates.Mira81.X && y1 == Coordinates.Mira81.Y 
+                && x2 == Coordinates.IKIT.X && y2 == Coordinates.IKIT.Y)))
+            {
+                return 8200;
+            }
+            if ((x1 == Coordinates.IKIT.X && y1 == Coordinates.IKIT.Y 
+                && x2 == Coordinates.Mira124.X && y2 == Coordinates.Mira124.Y) 
+                || ( (x1 == Coordinates.Mira124.X && y1 == Coordinates.Mira124.Y 
+                && x2 == Coordinates.IKIT.X && y2 == Coordinates.IKIT.Y)))
+            {
+                return 5200;
+            }
+            if ((x1 == Coordinates.IKIT.X && y1 == Coordinates.IKIT.Y 
+                && x2 == Coordinates.Gazety5.X && y2 == Coordinates.Gazety5.Y) 
+                || ( (x1 == Coordinates.Gazety5.X && y1 == Coordinates.Gazety5.Y 
+                && x2 == Coordinates.IKIT.X && y2 == Coordinates.IKIT.Y)))
+            {
+                return 14100;
+            }
+            if ((x1 == Coordinates.IKIT.X && y1 == Coordinates.IKIT.Y 
+                && x2 == Coordinates.Svobodnyi76.X && y2 == Coordinates.Svobodnyi76.Y) 
+                || ( (x1 == Coordinates.Svobodnyi76.X && y1 == Coordinates.Svobodnyi76.Y 
+                && x2 == Coordinates.IKIT.X && y2 == Coordinates.IKIT.Y)))
+            {
+                return 5300;
+            }
+            if ((x1 == Coordinates.IKIT.X && y1 == Coordinates.IKIT.Y 
+                && x2 == Coordinates.KarlaMarksa135.X && y2 == Coordinates.KarlaMarksa135.Y) 
+                || ( (x1 == Coordinates.KarlaMarksa135.X && y1 == Coordinates.KarlaMarksa135.Y 
+                && x2 == Coordinates.IKIT.X && y2 == Coordinates.IKIT.Y)))
+            {
+                return 7900;
+            }
+            if ((x1 == Coordinates.IKIT.X && y1 == Coordinates.IKIT.Y 
+                && x2 == Coordinates.AdyLebedevoi109.X && y2 == Coordinates.AdyLebedevoi109.Y) 
+                || ( (x1 == Coordinates.AdyLebedevoi109.X && y1 == Coordinates.AdyLebedevoi109.Y 
+                && x2 == Coordinates.IKIT.X && y2 == Coordinates.IKIT.Y)))
+            {
+                return 6300;
+            }
+            if ((x1 == Coordinates.Mira81.X && y1 == Coordinates.Mira81.Y 
+                && x2 == Coordinates.Mira124.X && y2 == Coordinates.Mira124.Y) 
+                || ( (x1 == Coordinates.Mira124.X && y1 == Coordinates.Mira124.Y 
+                && x2 == Coordinates.Mira81.X && y2 == Coordinates.Mira81.Y)))
+            {
+                return 1100;
+            }
+            if ((x1 == Coordinates.Mira81.X && y1 == Coordinates.Mira81.Y 
+                && x2 == Coordinates.Gazety5.X && y2 == Coordinates.Gazety5.Y) 
+                || ( (x1 == Coordinates.Gazety5.X && y1 == Coordinates.Gazety5.Y 
+                && x2 == Coordinates.Mira81.X && y2 == Coordinates.Mira81.Y)))
+            {
+                return 7900;
+            }
+            if ((x1 == Coordinates.Mira81.X && y1 == Coordinates.Mira81.Y 
+                && x2 == Coordinates.Svobodnyi76.X && y2 == Coordinates.Svobodnyi76.Y) 
+                || ( (x1 == Coordinates.Svobodnyi76.X && y1 == Coordinates.Svobodnyi76.Y 
+                && x2 == Coordinates.Mira81.X && y2 == Coordinates.Mira81.Y)))
+            {
+                return 6900;
+            }
+            if ((x1 == Coordinates.Mira81.X && y1 == Coordinates.Mira81.Y 
+                && x2 == Coordinates.KarlaMarksa135.X && y2 == Coordinates.KarlaMarksa135.Y) 
+                || ( (x1 == Coordinates.KarlaMarksa135.X && y1 == Coordinates.KarlaMarksa135.Y 
+                && x2 == Coordinates.Mira81.X && y2 == Coordinates.Mira81.Y)))
+            {
+                return 700;
+            }
+            if ((x1 == Coordinates.Mira81.X && y1 == Coordinates.Mira81.Y 
+                && x2 == Coordinates.AdyLebedevoi109.X && y2 == Coordinates.AdyLebedevoi109.Y) 
+                || ( (x1 == Coordinates.AdyLebedevoi109.X && y1 == Coordinates.AdyLebedevoi109.Y 
+                && x2 == Coordinates.Mira81.X && y2 == Coordinates.Mira81.Y)))
+            {
+                return 1200;
+            }
+            if ((x1 == Coordinates.Mira124.X && y1 == Coordinates.Mira124.Y 
+                && x2 == Coordinates.Gazety5.X && y2 == Coordinates.Gazety5.Y) 
+                || ( (x1 == Coordinates.Gazety5.X && y1 == Coordinates.Gazety5.Y 
+                && x2 == Coordinates.Mira124.X && y2 == Coordinates.Mira124.Y)))
+            {
+                return 9000;
+            }
+            if ((x1 == Coordinates.Mira124.X && y1 == Coordinates.Mira124.Y 
+                && x2 == Coordinates.Svobodnyi76.X && y2 == Coordinates.Svobodnyi76.Y) 
+                || ( (x1 == Coordinates.Svobodnyi76.X && y1 == Coordinates.Svobodnyi76.Y 
+                && x2 == Coordinates.Mira124.X && y2 == Coordinates.Mira124.Y)))
+            {
+                return 5800;
+            }
+            if ((x1 == Coordinates.Mira124.X && y1 == Coordinates.Mira124.Y 
+                && x2 == Coordinates.KarlaMarksa135.X && y2 == Coordinates.KarlaMarksa135.Y) 
+                || ( (x1 == Coordinates.KarlaMarksa135.X && y1 == Coordinates.KarlaMarksa135.Y 
+                && x2 == Coordinates.Mira124.X && y2 == Coordinates.Mira124.Y)))
+            {
+                return 1300;
+            }
+            if ((x1 == Coordinates.Mira124.X && y1 == Coordinates.Mira124.Y 
+                && x2 == Coordinates.AdyLebedevoi109.X && y2 == Coordinates.AdyLebedevoi109.Y) 
+                || ( (x1 == Coordinates.AdyLebedevoi109.X && y1 == Coordinates.AdyLebedevoi109.Y 
+                && x2 == Coordinates.Mira124.X && y2 == Coordinates.Mira124.Y)))
+            {
+                return 1000;
+            }
+            if ((x1 == Coordinates.Gazety5.X && y1 == Coordinates.Gazety5.Y 
+                && x2 == Coordinates.Svobodnyi76.X && y2 == Coordinates.Svobodnyi76.Y) 
+                || ( (x1 == Coordinates.Svobodnyi76.X && y1 == Coordinates.Svobodnyi76.Y 
+                && x2 == Coordinates.Gazety5.X && y2 == Coordinates.Gazety5.Y)))
+            {
+                return 15200;
+            }
+            if ((x1 == Coordinates.Gazety5.X && y1 == Coordinates.Gazety5.Y 
+                && x2 == Coordinates.KarlaMarksa135.X && y2 == Coordinates.KarlaMarksa135.Y) 
+                || ( (x1 == Coordinates.KarlaMarksa135.X && y1 == Coordinates.KarlaMarksa135.Y 
+                && x2 == Coordinates.Gazety5.X && y2 == Coordinates.Gazety5.Y)))
+            {
+                return 9500;
+            }
+            if ((x1 == Coordinates.Gazety5.X && y1 == Coordinates.Gazety5.Y 
+                && x2 == Coordinates.AdyLebedevoi109.X && y2 == Coordinates.AdyLebedevoi109.Y) 
+                || ( (x1 == Coordinates.AdyLebedevoi109.X && y1 == Coordinates.AdyLebedevoi109.Y 
+                && x2 == Coordinates.Gazety5.X && y2 == Coordinates.Gazety5.Y)))
+            {
+                return 9600;
+            }
+            if ((x1 == Coordinates.Svobodnyi76.X && y1 == Coordinates.Svobodnyi76.Y 
+                && x2 == Coordinates.KarlaMarksa135.X && y2 == Coordinates.KarlaMarksa135.Y) 
+                || ( (x1 == Coordinates.KarlaMarksa135.X && y1 == Coordinates.KarlaMarksa135.Y 
+                && x2 == Coordinates.Svobodnyi76.X && y2 == Coordinates.Svobodnyi76.Y)))
+            {
+                return 7700;
+            }
+            if ((x1 == Coordinates.Svobodnyi76.X && y1 == Coordinates.Svobodnyi76.Y 
+                && x2 == Coordinates.AdyLebedevoi109.X && y2 == Coordinates.AdyLebedevoi109.Y) 
+                || ( (x1 == Coordinates.AdyLebedevoi109.X && y1 == Coordinates.AdyLebedevoi109.Y 
+                && x2 == Coordinates.Svobodnyi76.X && y2 == Coordinates.Svobodnyi76.Y)))
+            {
+                return 7300;
+            }
+            if ((x1 == Coordinates.KarlaMarksa135.X && y1 == Coordinates.KarlaMarksa135.Y 
+                && x2 == Coordinates.AdyLebedevoi109.X && y2 == Coordinates.AdyLebedevoi109.Y) 
+                || ( (x1 == Coordinates.AdyLebedevoi109.X && y1 == Coordinates.AdyLebedevoi109.Y 
+                && x2 == Coordinates.KarlaMarksa135.X && y2 == Coordinates.KarlaMarksa135.Y)))
+            {
+                return 1400;
+            }
+            return 0;
+        }
+
     }
 }

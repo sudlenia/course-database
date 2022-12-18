@@ -63,8 +63,10 @@ namespace course
                     if (i != j)
                     {
                         vertices[i].Neighbours.Add(vertices[j]);
+                        int w = DijkstraMagic.GetDistance(vertices[i].X, vertices[i].Y, vertices[j].X, vertices[j].Y);
+                        //MessageBox.Show(w.ToString());
                         Edge edge = new Edge() 
-                        { Vertex1 = vertices[i], Vertex2 = vertices[j], Weight = 12 };
+                        { Vertex1 = vertices[i], Vertex2 = vertices[j], Weight = w };
                         edges.Add(edge);
                     }
                 }
@@ -86,10 +88,19 @@ namespace course
             //PointLatLng start = new PointLatLng(FromX, FromY);
             // convert to list of points
             List<PointLatLng> points = new List<PointLatLng>();
+            List<PointLatLng> pp = new List<PointLatLng>();
 
             shortestPath.ForEach(d => points.Add( new PointLatLng( d.X, d.Y ) ) );
 
-            DrawMap(points);
+            data.Sort(delegate(List<double> a, List<double> b)
+            {
+                return a[1].CompareTo(b[1]);
+            });
+
+            data.Insert(0, new List<double>() { FromX, FromY });
+            data.ForEach(d => pp.Add(new PointLatLng(d[0], d[1])));
+
+            DrawMap(pp);
         }
 
         private List<PointLatLng> ConvertToPointList(string points)
@@ -150,6 +161,8 @@ namespace course
                 points.ForEach(p =>
                 {
                     GMarkerGoogle marker = new GMarkerGoogle(p, GMarkerGoogleType.black_small);
+                    marker.ToolTip = new GMapRoundedToolTip(marker);
+                    marker.ToolTipText = DijkstraMagic.getAdress(p.Lat, p.Lng); //Текст всплывающих подсказок при наведении
                     markersOverlay.Markers.Add(marker);
                 });
 
